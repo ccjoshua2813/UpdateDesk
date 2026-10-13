@@ -1,0 +1,6 @@
+name: UpdateDesk
+version: '${version}'
+main: com.updatedesk.UpdateDeskPlugin
+api-version: '26.2'
+description: Gestor de actualizaciones de plugins con interfaz nativa. Solo avisa; nunca instala nada sin aprobación.
+authors: [Joshua]

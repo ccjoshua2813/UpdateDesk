@@ -1,0 +1,77 @@
+# UpdateDesk - gestor de actualizaciones de plugins
+# En esta versión SOLO consulta y avisa. No descarga ni instala nada.
+
+# Plugins que no quieres revisar (nombre exacto del plugin)
+ignore: []
+
+# Para qué cargadores se buscan versiones en Modrinth (los plugins de Paper suelen publicarse como paper, spigot o bukkit)
+loaders: [paper, spigot, bukkit]
+
+# Minutos que se conserva el resultado de la última comprobación antes de volver a consultar
+cache-minutes: 10
+
+# Revisión en segundo plano (silenciosa: solo escribe una línea en la consola si hay algo)
+check-interval-hours: 12
+
+# Al entrar un administrador, un único aviso breve si hay plugins desactualizados o pendientes de reiniciar
+notify-on-join: true
+notify-cooldown-hours: 12
+
+# Cuántas copias de cada plugin se conservan en plugins/UpdateDesk/backups/<plugin>/
+backups-keep: 3
+
+# Tamaño máximo de una descarga
+max-download-mb: 100
+
+restart:
+  # Comando de consola que reinicia el servidor (opcional). Vacío = apagar el servidor con "stop"; entonces el panel/hosting
+  # debe volver a iniciarlo (por ejemplo con el reinicio automático o una tarea programada).
+  command: ""
+  countdown-seconds: 30
+
+# CANAL: por defecto solo se ofrecen versiones estables (release). Aquí pones los plugins que sí aceptan beta/alpha
+# (por ejemplo Geyser o WorldEdit publican como beta).
+allow-prerelease: []
+
+# Plugins que sabes que funcionan en tu Minecraft aunque su autor no declare la versión en la ficha.
+# Con esto su actualización se trata como confirmada (sin el aviso ⚠).
+assume-compatible: []
+
+# Fuentes oficiales para plugins que NO están en Modrinth. La clave es el nombre del plugin (como en /plugins).
+# Se compara el hash del jar instalado con el de la última versión publicada.
+#   geysermc:geyser | geysermc:floodgate        -> https://download.geysermc.org (hash SHA-256 oficial)
+#   github:propietario/repo:regex-del-archivo   -> releases de GitHub (solo se descarga si GitHub publica el hash)
+#   spigot:NÚMERO-DE-RECURSO                    -> última versión en SpigotMC (endpoint oficial; solo informa, sin descarga). El número va al final de la URL del recurso.
+#   jenkins:URL-del-job:regex-con-un-grupo      -> builds de desarrollo (solo ci.ender.zone; sin hash oficial: nunca se descargan solas)
+sources:
+  Geyser-Spigot: "geysermc:geyser"
+  floodgate: "geysermc:floodgate"
+  # Los plugins creados con este proyecto (releases de GitHub, con hash SHA-256 oficial):
+  UpdateDesk: 'github:ccjoshua2813/UpdateDesk:UpdateDesk-.*\.jar'
+  QuickMenu: 'github:ccjoshua2813/QuickMenu:QuickMenu-.*\.jar'
+  # Plugins de SpigotMC: si tu versión ya es la última sale como "al día" y deja de figurar como manual.
+  CMILib: "spigot:87610"
+  Jobs: "spigot:4216"
+  # EconomyShopGUI: "spigot:NÚMERO"   (el número del recurso, al final de su URL en spigotmc.org)
+  # EssentialsX: la estable (GitHub, con hash) y las builds de desarrollo (Jenkins, sin hash: solo informa y se instala a mano).
+  # Quita la línea de jenkins si prefieres seguir solo las estables.
+  # IMPORTANTE: las expresiones regulares van entre comillas SIMPLES (con dobles, una barra invertida rompe el archivo).
+  # RemmyChat (archivado, última versión 1.4.5): releases de GitHub con hash SHA-256
+  RemmyChat: 'github:NoximityGaming/RemmyChat:remmychat-.*\.jar'
+  Essentials:
+    - 'jenkins:https://ci.ender.zone/job/EssentialsX:EssentialsX-(.+)\.jar'
+    - 'github:EssentialsX/Essentials:EssentialsX-\d[\d.]*\.jar'
+
+# Páginas oficiales de plugins que UpdateDesk no puede actualizar solo (se abren desde «Plugins manuales»).
+# Si no pones una, se usa el sitio web que el propio plugin declara en su plugin.yml.
+# Pega aquí las URL de SpigotMC / CurseForge / tu tienda: UpdateDesk no las inventa.
+links:
+  # Verificados en las páginas de sus autores (README de Zrips, wiki oficial, página oficial en Bukkit/Hangar)
+  CMILib: "https://www.spigotmc.org/resources/87610/"
+  Jobs: "https://www.spigotmc.org/resources/jobs-reborn.4216/"
+  EconomyShopGUI: "https://wiki.gpplugins.com/economyshopgui"
+  ServerSigns: "https://dev.bukkit.org/projects/serversigns"
+  # RemmyChat está archivado: los enlaces de Hangar y Modrinth están rotos; sus releases viven en el repositorio de NoximityGaming
+  RemmyChat: "https://github.com/NoximityGaming/RemmyChat/releases"
+  # Pega aquí la página del autor de los que faltan (UpdateDesk no inventa URLs):
+  # SinglePlayerSleep: ""

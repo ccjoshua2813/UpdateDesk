@@ -1,0 +1,32 @@
+plugins {
+	id 'java'
+}
+
+group = 'com.updatedesk'
+version = project.version
+
+repositories {
+	mavenCentral()
+	maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+	compileOnly "io.papermc.paper:paper-api:${project.paper_version}"
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.release = 25
+	options.encoding = 'UTF-8'
+}
+
+processResources {
+	inputs.property 'version', project.version
+	filesMatching('paper-plugin.yml') {
+		expand version: project.version
+	}
+}
