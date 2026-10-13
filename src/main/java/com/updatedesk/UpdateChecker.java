@@ -76,8 +76,6 @@ final class UpdateChecker {
 
 	CompletableFuture<Report> check() {
 		Set<String> ignored = new HashSet<>(plugin.getConfig().getStringList("ignore"));
-		List<InstalledPlugin> installed = PluginScanner.scan(ignored, plugin);      // lee los jars, en el hilo que llama
-
 		Map<String, List<String>> sources = new HashMap<>();
 		ConfigurationSection sec = plugin.getConfig().getConfigurationSection("sources");
 		if (sec != null) for (String k : sec.getKeys(false)) {
@@ -86,6 +84,8 @@ final class UpdateChecker {
 			if (!specs.isEmpty()) sources.put(k, specs);
 		}
 
+		// UpdateDesk se revisa a sí mismo solo si lo indicas en sources: (por ejemplo desde su repositorio de GitHub)
+		List<InstalledPlugin> installed = PluginScanner.scan(ignored, plugin, sources.containsKey(plugin.getName()));      // lee los jars, en el hilo que llama
 		List<InstalledPlugin> viaModrinth = installed.stream().filter(p -> !sources.containsKey(p.name())).toList();
 		List<InstalledPlugin> viaExternal = installed.stream().filter(p -> sources.containsKey(p.name())).toList();
 

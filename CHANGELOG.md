@@ -2,6 +2,10 @@
 
 Gestor de actualizaciones de plugins para Paper 26.2 con interfaz nativa (diálogos de Minecraft). Versiones 0.0.x mientras se prueba; la numeración empieza en 0.0.1 con la primera publicación.
 
+## 0.0.2
+- UpdateDesk ya puede **revisarse a sí mismo**: si aparece en `sources:` (por defecto, desde `ccjoshua2813/UpdateDesk` en GitHub) se incluye en la comprobación y se actualiza como cualquier otro plugin, con hash SHA-256 oficial y copia del jar anterior. Probado: actualización de UpdateDesk y de QuickMenu desde sus releases.
+- Nota: la primera vez desde una versión anterior (0.4.x de la numeración interna) hay que instalarlo a mano; esas versiones no se revisan a sí mismas.
+
 ## 0.0.1
 Primera publicación en GitHub. Reúne todo lo desarrollado y probado hasta ahora (antes con numeración interna 0.1.0–0.4.1, ver más abajo):
 - Identificación de plugins por el hash de su jar en **Modrinth**, y fuentes oficiales por nombre de plugin en `sources:`: **GeyserMC**, **GitHub Releases** (con SHA-256), builds de **Jenkins** (solo informan) y la última versión de **SpigotMC** (endpoint oficial, solo informa).

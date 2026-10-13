@@ -16,10 +16,10 @@ import java.util.Set;
 final class PluginScanner {
 	private PluginScanner() {}
 
-	static List<InstalledPlugin> scan(Set<String> ignored, Plugin self) {
+	static List<InstalledPlugin> scan(Set<String> ignored, Plugin self, boolean includeSelf) {
 		List<InstalledPlugin> out = new ArrayList<>();
 		for (Plugin p : Bukkit.getPluginManager().getPlugins()) {
-			if (p == self || ignored.contains(p.getName())) continue;
+			if ((p == self && !includeSelf) || ignored.contains(p.getName())) continue;
 			try {
 				Path jar = Path.of(p.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
 				if (!Files.isRegularFile(jar) || !jar.toString().endsWith(".jar")) continue;

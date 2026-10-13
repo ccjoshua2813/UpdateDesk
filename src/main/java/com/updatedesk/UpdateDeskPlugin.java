@@ -121,7 +121,7 @@ public final class UpdateDeskPlugin extends JavaPlugin implements Listener {
 
 	/** Las actualizaciones preparadas que ya se aplicaron (el jar instalado coincide con el nuevo) dejan de figurar como pendientes. */
 	private void forgetApplied() {
-		for (InstalledPlugin p : PluginScanner.scan(java.util.Set.of(), this)) {
+		for (InstalledPlugin p : PluginScanner.scan(java.util.Set.of(), this, true)) {
 			var e = staged.all().get(p.name());
 			if (e != null && e.newSha1().equalsIgnoreCase(p.sha1())) staged.remove(p.name());
 		}
